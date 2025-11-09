@@ -1,0 +1,53 @@
+services:
+  minecraft:
+    image: itzg/minecraft-server:java21
+    container_name: minecraft-server
+    restart: unless-stopped
+    ports:
+      - "25565:25565"  # Minecraft game port
+    environment:
+      # Accept EULA
+      EULA: "TRUE"
+
+      # Server type and version
+      TYPE: "VANILLA"
+      VERSION: "1.21.10"
+
+      # Memory settings (starts at 2GB, max 4GB)
+      INIT_MEMORY: "2G"
+      MAX_MEMORY: "4G"
+
+      # Server properties
+      SERVER_NAME: "Alex's Minecraft Server"
+      MOTD: "Welcome to Alex's Minecraft Server!"
+      DIFFICULTY: "easy"
+      MODE: "survival"
+      MAX_PLAYERS: "8"
+      ALLOW_NETHER: "true"
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
+      ENABLE_COMMAND_BLOCK: "false"
+      GENERATE_STRUCTURES: "true"
+      SPAWN_ANIMALS: "true"
+      SPAWN_MONSTERS: "true"
+      SPAWN_NPCS: "true"
+      VIEW_DISTANCE: "8"
+      ENABLE_WHITELIST: "TRUE"
+      WHITELIST: "KaputBuckle6, Antelope642"
+
+      # Performance
+      ONLINE_MODE: "true"
+
+      # RCON (Remote Console) for admin commands
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+
+    volumes:
+      - ./minecraft-data:/data
+
+    # Optional: Set resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G

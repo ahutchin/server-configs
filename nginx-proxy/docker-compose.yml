@@ -1,0 +1,18 @@
+services:
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: always
+    ports:
+      - 80:80      # HTTP
+      - 443:443    # HTTPS
+      - 81:81      # Admin interface
+    volumes:
+      - ./nginx-proxy-manager/data:/data
+      - ./nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+    networks:
+      - homelab-network
+
+networks:
+  homelab-network:
+    external: true
